@@ -1,0 +1,66 @@
+#include "stdafx.h"
+#include "stdio.h"
+#include <fstream>
+#include "iostream"
+#include "string"
+int _tmain(int argc, _TCHAR* argv[])
+{
+	std::ifstream File1("file1.txt");
+	std::ifstream File2("file2.txt");
+
+	std::ifstream buf1("file1.txt");
+	std::ifstream buf2("file2.txt");
+	int n(0), n1(0), n2(0);
+	std::string size1;
+	std::string size2;
+	while (std::getline(buf2, size2))
+	{
+		n2++;
+	}
+	while (std::getline(buf1, size2))
+	{
+		n1++;
+	}
+	n1 >= n2 ? (n = n1) : (n = n2);
+	std::string* line = new std::string[n];
+	std::string* line2= new std::string[n];
+	
+	for (int i = 0; i < n; i++)
+	{
+		std::getline(File1,line[i]);
+		std::getline(File2, line2[i]);
+	}
+	for (int j = 0; j < n; j++)
+	{
+		int a = 0;
+		for (int i = 0; i < n; i++)
+		{
+			if (line[j] != line2[i])				//Этот кусок кода ищет несовпадения.Если совпадения не найдены (а=n) элемент выводится.
+				{
+					a++;		
+				}		
+		}
+		if (a == n)
+		{
+			if (line[j] == "")
+			{
+				std::cout <<"File2, string "<< j+1 << '-'<< line2[j]<<std::endl;
+
+			}
+			else
+			{
+				std::cout <<"File1 , string "<< j+1<< '-' << line[j] <<std::endl;
+			}
+			
+		}
+	}
+
+	File1.close();
+	File2.close();
+	delete[] line;
+	delete[] line2;
+
+	system("pause");
+	return 0;
+}
+
